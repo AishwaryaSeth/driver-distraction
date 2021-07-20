@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    {% block scripts %} {% endblock scripts %}
+    {% if title %}
+        <title>Driver Assistance System - {{ title }}</title>
+    {% else %}
+        <title>Driver Assistance System</title>
+    {% endif %}
+<script src="{{ url_for('static', filename='upload.js') }}">
+</script>
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">ADAS</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="/">Home</a>
+              <a class="nav-item nav-link" href="/about">About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              <a class="nav-item nav-link" href="/login">Login</a>
+              <a class="nav-item nav-link" href="/register">Register</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+        {% with messages=get_flashed_messages(with_categories=true) %} 	{% if messages %}
+	{%for category,message in messages %}
+	<div class="alert alert-{{category}}">
+	{{message}}
+	</div>
+	{% endfor %}
+	{% endif %}
+{% endwith %}
+<h1> Select the File to be Uploaded</h1>
+<h6 id="testing"></h6>
+<div id="message"></div>
+<div id="disp_tmp_path"></div>
+<input type="file" name="vid1" accept="video/*"/>
+<h2>
+
+<script>
+  localFileVideoPlayer();
+  //function confirm_alert(node) {
+    //return confirm("Please click on OK to continue.");
+}
+  </script>
+</h2>
+<video controls autoplay></video>
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>Access to the ADAS Features.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light" ><a class="nav-item nav-link" href="/upload">Upload Video</a></li>
+                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{ url_for('analyze') }}">Perform Analysis</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  <script src="{{ url_for('static', filename='upload.js') }}"> </script>
+</body>
+</html>
